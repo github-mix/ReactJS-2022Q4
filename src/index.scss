@@ -1,0 +1,21 @@
+$darkslateblue: darkslateblue;
+
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  text-align: center;
+  color: $darkslateblue;
+  font: normal bold 50px/1 sans-serif;
+  transform: translate(-50%, -50%);
+
+  > img {
+    z-index: -1;
+    position: absolute;
+    top: inherit;
+    left: inherit;
+    height: 300px;
+    transform: inherit;
+  }
+}

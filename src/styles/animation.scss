@@ -1,0 +1,10 @@
+@keyframes hide-from-focus {
+    // in order to keep correct focus order
+    0% {
+        visibility: visible;
+    }
+
+    100% {
+        visibility: hidden;
+    }
+}

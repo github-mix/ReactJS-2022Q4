@@ -1,0 +1,22 @@
+@function hex-to-rgb($hex) {
+    @return red($hex) green($hex) blue($hex);
+}
+
+@mixin hex-rgb-color-vars($name, $color) {
+    --color--hex-#{$name}: #{$color};
+    --color--rgb-#{$name}: #{hex-to-rgb($color)};
+}
+
+@mixin hide-from-focus($delay) {
+    animation: hide-from-focus $delay step-end forwards;
+}
+
+@mixin focus-outline($isInset: true) {
+    outline: none;
+
+    @if $isInset {
+        box-shadow: inset 0 0 0 1px rgb(var(--color--rgb-white)), inset 0 0 0 3px rgb(var(--color--rgb-carnation));
+    } @else {
+        box-shadow: 0 0 0 2px rgb(var(--color--rgb-carnation)), 0 0 0 3px rgb(var(--color--rgb-white));
+    }
+}

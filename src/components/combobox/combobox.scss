@@ -1,0 +1,20 @@
+.c-combobox-dropdown {
+    z-index: var(--z-index--dropdown);
+    display: none;
+    position: absolute;
+    top: 100%;
+    min-width: 200px;
+    max-width: 100%;
+    padding: var(--padding--default);
+    border-radius: var(--border--radius-default);
+    background: var(--color--hex-mine-shaft);
+    box-shadow:
+        0 0 2px rgb(0 0 0 / 10%),
+        0 2px 10px rgb(0 0 0 / 10%),
+        0 10px 20px rgb(0 0 0 / 10%),
+        0 10px 50px rgb(0 0 0 / 10%);
+
+    &.m-open {
+        display: block;
+    }
+}

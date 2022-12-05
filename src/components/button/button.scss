@@ -1,0 +1,43 @@
+@import "../../styles/includes";
+
+.c-button {
+    padding: 0 var(--padding--default);
+    height: var(--height--default-control);
+    box-sizing: border-box;
+    border-radius: var(--border--radius-default);
+    border: 1px solid;
+    text-transform: uppercase;
+    font: 500 20px/24px var(--font-family--primary);
+    cursor: pointer;
+
+    @media screen and (min-width: $bp-desktop) {
+        min-width: 180px;
+    }
+
+    &:focus {
+        @include focus-outline;
+    }
+
+    &.m-primary {
+        border-color: transparent;
+        background: var(--color--hex-carnation);
+        color: var(--color--hex-white);
+    }
+
+    &.m-secondary {
+        border-color: var(--color--hex-carnation);
+        background: var(--color--hex-mine-shaft);
+        color: var(--color--hex-carnation);
+    }
+
+    &.m-transparent {
+        border-color: transparent;
+        background: rgba(var(--color--rgb-scorpion) / 68%);
+        color: var(--color--hex-carnation);
+        font-weight: 600;
+    }
+
+    &.m-small {
+        height: var(--height--small-control);
+    }
+}

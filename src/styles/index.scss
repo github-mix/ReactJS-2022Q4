@@ -1,0 +1,21 @@
+html {
+    overflow: hidden;
+
+    &[data-showcase-mode="true"] .c-root,
+    &[data-showcase-mode="false"] .c-showcase {
+        display: none;
+    }
+}
+
+body {
+    font: normal normal 16px/20px var(--font-family--primary);
+    color: var(--color--hex-white);
+}
+
+.c-showcase {
+    height: 100vh;
+    overflow: auto;
+    padding: var(--space--8);
+    box-sizing: border-box;
+    background: var(--color--hex-mine-shaft);
+}

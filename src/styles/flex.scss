@@ -1,0 +1,20 @@
+.c-flex {
+    display: flex;
+    flex-wrap: wrap;
+
+    &.m-column {
+        flex-direction: column;
+    }
+
+    @for $i from 1 through 20 {
+        &.m-gap-#{$i} {
+            gap: var(--space--#{$i});
+        }
+    }
+}
+
+.c-flex__cell {
+    &.m-grow-1 {
+        flex-grow: 1;
+    }
+}

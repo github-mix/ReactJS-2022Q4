@@ -1,0 +1,38 @@
+@import "../../styles/includes";
+
+.c-checkbox {
+    display: inline-block;
+}
+
+.c-checkbox__input {
+    position: absolute;
+    opacity: 0;
+    user-select: none;
+
+    &:checked + .c-checkbox__wrapper::before {
+        background: var(--color--hex-carnation) url("../../icons/tick.svg") no-repeat 50% 50%;
+    }
+
+    &:focus + .c-checkbox__wrapper::before {
+        @include focus-outline(false);
+    }
+}
+
+.c-checkbox__wrapper {
+    position: relative;
+    display: block;
+    padding-left: 24px;
+    color: rgba(var(--color--rgb-white) / 80%);
+    font: 400 20px/24px var(--font-family--primary);
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 16px;
+        height: 16px;
+        background-color: var(--color--hex-white);
+        border-radius: 2px;
+    }
+}

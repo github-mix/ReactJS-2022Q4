@@ -1,9 +1,17 @@
 const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
         main: path.resolve(__dirname, '../src/index.jsx'),
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'ReactJS: ' + process.env.NODE_ENV,
+            template: path.resolve(__dirname, '../src/index.html'),
+            filename: 'index.html',
+        }),
+    ],
     resolve: {
         extensions: ['.js', '.jsx']
     },
@@ -28,18 +36,24 @@ module.exports = {
                     'sass-loader',
                 ],
             },
+            // Asset Modules
             {
                 test: /\.(gif|png|jpg?g|svg)$/i,
+                type: 'asset/resource',
                 use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: 'img/[name].[hash].[ext]'
-                        }
-                    },
                     'image-webpack-loader'
-                ]
-            }
+                ],
+                generator: {
+                    filename: 'img/[name].[hash][ext]',
+                },
+            },
+            {
+                test: /\.(woff|woff2|ttf|eot)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'font/[name].[hash][ext]',
+                },
+            },
         ]
     }
 }

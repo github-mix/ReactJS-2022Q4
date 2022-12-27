@@ -1,0 +1,104 @@
+@import "../../styles/includes";
+
+@mixin input-right-icon($icon-url) {
+    padding-right: 52px;
+    background: url($icon-url) no-repeat calc(100% - var(--padding--default)) 50%;
+}
+
+.c-base-field {
+    display: inline-block;
+    font: 600 16px/20px var(--font-family--primary);
+    letter-spacing: normal;
+
+    &.m-full-width {
+        display: block;
+    }
+
+    &.m-textarea .c-base-field__input {
+        display: inline-block;
+        min-width: auto;
+        min-height: auto;
+    }
+}
+
+.c-base-field__label {
+    display: block;
+    margin-bottom: 13px;
+    color: var(--color--hex-carnation);
+    letter-spacing: 0.89px;
+    text-transform: uppercase;
+}
+
+.c-base-field__input {
+    position: relative;
+    display: block;
+    min-width: 200px;
+    min-height: var(--height--default-control);
+    box-sizing: border-box;
+    border-radius: var(--border--radius-default);
+    background: rgb(var(--color--rgb-mine-shaft-2) / 50%);
+
+    > input,
+    > select,
+    > textarea {
+        box-sizing: border-box;
+        border: none;
+        border-radius: var(--border--radius-default);
+        background: transparent;
+        color: var(--color--hex-white);
+        font: 400 20px/24px var(--font-family--primary);
+
+        &:focus {
+            @include focus-outline;
+        }
+    }
+
+    > input,
+    > select {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 0 var(--padding--default);
+        appearance: none;
+    }
+
+    > input {
+        &[type="password"] {
+            @include input-right-icon("../../icons/eye.svg");
+        }
+
+        &[type="date"] {
+            @include input-right-icon("../../icons/calendar.svg");
+
+            padding-right: var(--padding--default);
+
+            &::-webkit-calendar-picker-indicator {
+                opacity: 0;
+            }
+        }
+
+        &[type="combobox"] {
+            @include input-right-icon("../../icons/down-arrow.svg");
+
+            padding-right: var(--padding--default);
+            cursor: auto;
+
+            &.m-open {
+                background-image: url("../../icons/up-arrow.svg");
+            }
+        }
+    }
+
+    > select {
+        @include input-right-icon("../../icons/down-arrow.svg");
+
+        option {
+            background: var(--color--hex-mine-shaft-2);
+        }
+    }
+
+    > textarea {
+        display: block;
+        padding: var(--padding--default);
+    }
+}

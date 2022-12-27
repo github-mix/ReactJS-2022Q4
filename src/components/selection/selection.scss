@@ -1,0 +1,35 @@
+@import "../../styles/includes";
+
+.c-selection {
+    display: inline-block;
+    white-space: nowrap;
+    font: 16px/20px var(--font-family--primary);
+
+    > select {
+        height: var(--height--default-control);
+        padding: 0 42px 0 15px;
+        box-sizing: border-box;
+        border: none;
+        border-radius: var(--border--radius-default);
+        background: url("../../icons/down-arrow.svg") no-repeat calc(100% - 15px) 50% / 12px;
+        text-transform: uppercase;
+        color: var(--color--hex-white);
+        font: inherit;
+        font-weight: 500;
+        appearance: none;
+
+        &:focus {
+            @include focus-outline;
+        }
+
+        option {
+            background: var(--color--hex-mine-shaft-2);
+        }
+    }
+}
+
+.c-selection__label {
+    margin-right: 15px;
+    text-transform: uppercase;
+    color: rgba(var(--color--rgb-white) / 60%);
+}

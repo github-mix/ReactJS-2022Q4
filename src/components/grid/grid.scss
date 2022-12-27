@@ -1,0 +1,14 @@
+.c-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    justify-items: center;
+
+    &.m-default-gap {
+        gap: 60px;
+    }
+
+    > li {
+        width: 100%;
+        max-width: 320px;
+    }
+}

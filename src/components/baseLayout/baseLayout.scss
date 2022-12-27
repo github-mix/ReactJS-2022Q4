@@ -1,0 +1,115 @@
+@import "../../styles/includes";
+
+.c-base-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: auto;
+    background-color: var(--color--hex-mine-shaft);
+}
+
+.c-base-layout__header {
+    z-index: 1;
+    flex-shrink: 0;
+    position: relative;
+    height: 406px;
+    box-sizing: border-box;
+    border-bottom: 10px solid var(--color--hex-emperor);
+    background-color: var(--color--hex-black);
+
+    @media screen and (min-width: $bp-desktop) {
+        position: sticky;
+        top: -324px;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: url("img/background.png");
+        background-position-x: 50%;
+        filter: blur(4.0774px);
+    }
+}
+
+.c-base-layout__header-content,
+.c-base-layout__aside,
+.c-base-layout__main {
+    position: relative;
+    margin: 0 auto;
+    padding: 0 var(--padding--default);
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+
+    @media screen and (min-width: $bp-desktop) {
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+}
+
+.c-base-layout__header-content {
+    position: relative;
+    padding-top: 100px;
+
+    @media screen and (min-width: $bp-desktop) {
+        position: sticky;
+        top: -180px;
+        padding-right: 120px;
+        padding-left: 120px;
+    }
+
+    > .c-logo,
+    > .c-button {
+        position: absolute;
+        top: 15px;
+    }
+
+    > .c-logo {
+        left: 5%;
+    }
+
+    > .c-button {
+        right: 5%;
+    }
+}
+
+.c-base-layout__header-title {
+    margin-bottom: 38px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font: 300 40px/49px var(--font-family--primary);
+    color: var(--color--hex-white);
+}
+
+.c-base-layout__aside {
+    flex-shrink: 0;
+    z-index: 1;
+    background: inherit;
+
+    @media screen and (min-width: $bp-desktop) {
+        position: sticky;
+        top: 82px;
+    }
+}
+
+.c-base-layout__main {
+    flex-grow: 1;
+    padding-top: 24px;
+    padding-bottom: 74px;
+}
+
+.c-base-layout__footer {
+    flex-shrink: 0;
+    position: relative;
+    min-height: 70px;
+    background: var(--color--hex-tundora);
+
+    > .c-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

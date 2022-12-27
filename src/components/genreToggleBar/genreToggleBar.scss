@@ -1,0 +1,91 @@
+@import "../../styles/includes";
+
+$tab-side-padding: 15px;
+$tab-marker-side-indent: $tab-side-padding - 2px;
+$active-tab-marker-height: 3px;
+
+.c-genre-toggle-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 40px;
+    position: relative;
+    padding-bottom: 4px;
+    min-height: var(--height--default-control);
+
+    &::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 1px;
+        border-top: 2px solid var(--color--hex-tundora);
+        border-bottom: 1px solid var(--color--hex-black);
+    }
+}
+
+.c-genre-toggle-bar__toggle {
+    display: flex;
+    overflow: auto;
+    padding-bottom: $active-tab-marker-height;
+    padding-left: $tab-side-padding;
+    margin-bottom: -$active-tab-marker-height;
+    margin-left: -$tab-side-padding;
+
+    > button {
+        position: relative;
+        padding: 0 $tab-side-padding;
+        height: var(--height--default-control);
+        outline: none;
+        border: none;
+        background: none;
+        text-transform: uppercase;
+        font: 500 16px/20px var(--font-family--primary);
+        color: var(--color--hex-white);
+        cursor: pointer;
+
+        &:focus::before {
+            content: "";
+        }
+
+        &::before {
+            @include focus-outline;
+
+            position: absolute;
+            top: 6px;
+            right: 2px;
+            bottom: 6px;
+            left: 2px;
+            border-radius: var(--border--radius-default);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            right: $tab-marker-side-indent;
+            top: 100%;
+            left: $tab-marker-side-indent;
+            height: 0;
+            background: var(--color--hex-carnation);
+            transition: height ease-in-out var(--delay--default);
+        }
+
+        &:first-child {
+            margin-left: -$tab-marker-side-indent;
+        }
+
+        &.m-active::after {
+            height: $active-tab-marker-height;
+        }
+    }
+}
+
+.c-genre-toggle-bar__content-from-right {
+    flex-grow: 1;
+    text-align: right;
+
+    > .c-selection {
+        margin-right: -15px;
+    }
+}

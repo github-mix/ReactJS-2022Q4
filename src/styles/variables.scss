@@ -1,0 +1,52 @@
+@import "mixins";
+
+// breakpoints
+$bp-desktop: 768px;
+
+// scss color variables
+$color-carnation: #f65261;
+$color-black: #000;
+$color-mine-shaft: #232323;
+$color-mine-shaft-2: #323232;
+$color-tundora: #424242;
+$color-emperor: #555;
+$color-scorpion: #606060;
+$color-white: #fff;
+
+:root {
+    // color variables
+    @include hex-rgb-color-vars(carnation, $color-carnation);
+    @include hex-rgb-color-vars("black", $color-black);
+    @include hex-rgb-color-vars(mine-shaft, $color-mine-shaft);
+    @include hex-rgb-color-vars(mine-shaft-2, $color-mine-shaft-2);
+    @include hex-rgb-color-vars(tundora, $color-tundora);
+    @include hex-rgb-color-vars(emperor, $color-emperor);
+    @include hex-rgb-color-vars(scorpion, $color-scorpion);
+    @include hex-rgb-color-vars("white", $color-white);
+
+    // size and height variables
+    --height--default-control: 58px;
+    --height--small-control: 46px;
+    --size--min-clickable-area: 34px;
+
+    // common paddings
+    --padding--default: 18px;
+
+    // border-radius variables
+    --border--radius-default: 4px;
+
+    // z-indexes
+    --z-index--dropdown: 100;
+    --z-index--popup: 1000;
+
+    // animation delay
+    --delay--default: 0.2s;
+
+    // space variables
+    @for $i from 1 through 20 {
+        --space--#{$i}: #{$i * 5}px;
+    }
+
+    // font variables
+    --font-family--primary: montserrat, sans-serif;
+}

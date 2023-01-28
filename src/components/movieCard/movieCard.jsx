@@ -32,9 +32,7 @@ function MovieCard(props) {
                 />
                 <ShowPopup
                     title="Edit movie"
-                    body={
-                        <MoviePopupForm data={data} />
-                    }
+                    body={<MoviePopupForm data={data} />}
                     actionsFooter={(
                         <>
                             <Button mode="secondary" size="small">reset</Button>

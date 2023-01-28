@@ -1,46 +1,28 @@
-import React from 'react';
-import BaseLayout from './components/baseLayout/baseLayout';
-import Logo from './components/logo/logo';
-import Button from './components/button/button';
-import Input from './components/input/input';
-import GenreToggleBar from './components/genreToggleBar/genreToggleBar';
-import MovieCardsGrid from './components/movieCardsGrid/movieCardsGrid';
-import movies from './mock/movies';
-import ErrorBoundary from './components/errorBoundary/errorBoundary';
+import React, { useState, useMemo } from 'react';
+import Page from './page/page';
+import Popup from './components/popup/popup';
+import GlobalContext from './GlobalContext';
 
 function App() {
+    const [isOpenPopup, setIsOpenPopup] = useState(false);
+    const [popupContent, setPopupContent] = useState(null);
+    const showPopup = (content) => {
+        setPopupContent(content);
+        setIsOpenPopup(true);
+    };
+
+    const testGlobalContextFromMovieCard = (msg) => {
+        // eslint-disable-next-line no-console
+        console.warn('Catch the message from App.js:', msg);
+    };
+
+    const memoizedPopupSetting = useMemo(() => ({ showPopup, testGlobalContextFromMovieCard }), []);
+
     return (
-        <BaseLayout>
-            <BaseLayout.Header title="FIND YOUR MOViE">
-                <Logo />
-                <Button mode="transparent" size="small">
-                    +
-                    <span className="u-only-desktop"> add movie</span>
-                </Button>
-                <div className="c-flex m-gap-3">
-                    <div className="c-flex__cell m-grow-1">
-                        <Input isFullWidth placeholder="What do you want to watch?" />
-                    </div>
-                    <Button mode="primary">search</Button>
-                </div>
-            </BaseLayout.Header>
-            <BaseLayout.Aside>
-                <GenreToggleBar
-                    tabs={['All', 'Documentary', 'Comedy', 'Horror', 'Crime']}
-                    sortOptions={['Option 1', 'Option 2', 'Option 3']}
-                />
-            </BaseLayout.Aside>
-            <BaseLayout.Main>
-                <ErrorBoundary>
-                    <MovieCardsGrid>
-                        {movies}
-                    </MovieCardsGrid>
-                </ErrorBoundary>
-            </BaseLayout.Main>
-            <BaseLayout.Footer>
-                <Logo />
-            </BaseLayout.Footer>
-        </BaseLayout>
+        <GlobalContext.Provider value={memoizedPopupSetting}>
+            <Page />
+            <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupContent={popupContent} />
+        </GlobalContext.Provider>
     );
 }
 

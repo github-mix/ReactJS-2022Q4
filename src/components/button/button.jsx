@@ -13,7 +13,6 @@ function Button(props) {
         'm-transparent': mode === 'transparent',
         'm-small': size === 'small',
     });
-    // const myRef = React.createRef();
 
     return <button ref={myRef} type="button" className={className} onClick={onClick}>{children}</button>;
 }

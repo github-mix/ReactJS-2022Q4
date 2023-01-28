@@ -17,7 +17,7 @@
     border-bottom: 10px solid var(--color--hex-emperor);
     background-color: var(--color--hex-black);
 
-    @media screen and (min-width: $bp-desktop) {
+    @media screen and (min-width: $bp-tablet) {
         position: sticky;
         top: -324px;
     }
@@ -43,7 +43,7 @@
     max-width: 1200px;
     box-sizing: border-box;
 
-    @media screen and (min-width: $bp-desktop) {
+    @media screen and (min-width: $bp-tablet) {
         padding-right: 60px;
         padding-left: 60px;
     }
@@ -53,7 +53,7 @@
     position: relative;
     padding-top: 100px;
 
-    @media screen and (min-width: $bp-desktop) {
+    @media screen and (min-width: $bp-tablet) {
         position: sticky;
         top: -180px;
         padding-right: 120px;
@@ -79,7 +79,7 @@
     margin-bottom: 38px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    font: 300 40px/49px var(--font-family--primary);
+    font: 300 2.5rem/49px var(--font-family--primary);
     color: var(--color--hex-white);
 }
 
@@ -88,7 +88,7 @@
     z-index: 1;
     background: inherit;
 
-    @media screen and (min-width: $bp-desktop) {
+    @media screen and (min-width: $bp-tablet) {
         position: sticky;
         top: 82px;
     }

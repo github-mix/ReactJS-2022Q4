@@ -7,10 +7,10 @@
     border-radius: var(--border--radius-default);
     border: 1px solid;
     text-transform: uppercase;
-    font: 500 20px/24px var(--font-family--primary);
+    font: 500 1.25rem/24px var(--font-family--primary);
     cursor: pointer;
 
-    @media screen and (min-width: $bp-desktop) {
+    @media screen and (min-width: $bp-tablet) {
         min-width: 180px;
     }
 

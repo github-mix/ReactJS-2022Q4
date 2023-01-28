@@ -1,0 +1,20 @@
+@import "../../styles/includes";
+
+.c-movie-popup-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+
+    @media screen and (min-width: $bp-tablet) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (min-width: $bp-desktop) {
+        grid-template-columns: 1fr 300px;
+        width: 856px;
+    }
+
+    > :last-child {
+        grid-column: 1 / 3;
+    }
+}

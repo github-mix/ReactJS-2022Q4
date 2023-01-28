@@ -7,17 +7,25 @@
 
 .c-base-field {
     display: inline-block;
-    font: 600 16px/20px var(--font-family--primary);
+    font: 600 1rem/20px var(--font-family--primary);
     letter-spacing: normal;
-
-    &.m-full-width {
-        display: block;
-    }
 
     &.m-textarea .c-base-field__input {
         display: inline-block;
         min-width: auto;
         min-height: auto;
+    }
+
+    &.m-full-width {
+        display: block;
+
+        .c-base-field__input {
+            display: block;
+
+            > textarea {
+                width: 100%;
+            }
+        }
     }
 }
 
@@ -46,7 +54,7 @@
         border-radius: var(--border--radius-default);
         background: transparent;
         color: var(--color--hex-white);
-        font: 400 20px/24px var(--font-family--primary);
+        font: 400 1.25rem/24px var(--font-family--primary);
 
         &:focus {
             @include focus-outline;

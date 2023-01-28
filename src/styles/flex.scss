@@ -1,6 +1,7 @@
 .c-flex {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
 
     &.m-column {
         flex-direction: column;

@@ -8,6 +8,7 @@ import GenreToggleBar from '../components/genreToggleBar/genreToggleBar';
 import ErrorBoundary from '../components/errorBoundary/errorBoundary';
 import MovieCardsGrid from '../components/movieCardsGrid/movieCardsGrid';
 import movies from '../mock/movies';
+import {GENRES} from "../globalConstants";
 
 function Page() {
     return (
@@ -24,7 +25,7 @@ function Page() {
             </BaseLayout.Header>
             <BaseLayout.Aside>
                 <GenreToggleBar
-                    tabs={['All', 'Documentary', 'Comedy', 'Horror', 'Crime']}
+                    tabs={Object.keys(GENRES)}
                     sortOptions={['Option 1', 'Option 2', 'Option 3']}
                 />
             </BaseLayout.Aside>

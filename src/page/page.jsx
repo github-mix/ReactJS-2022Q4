@@ -8,7 +8,7 @@ import GenreToggleBar from '../components/genreToggleBar/genreToggleBar';
 import ErrorBoundary from '../components/errorBoundary/errorBoundary';
 import MovieCardsGrid from '../components/movieCardsGrid/movieCardsGrid';
 import movies from '../mock/movies';
-import {GENRES} from "../globalConstants";
+import { GENRES } from '../globalConstants';
 
 function Page() {
     return (

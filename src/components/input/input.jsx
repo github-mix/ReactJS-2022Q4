@@ -15,10 +15,13 @@ function Input(props) {
 }
 
 Input.propTypes = {
-    type: PropTypes.oneOf(['text', 'date', 'password']),
+    type: PropTypes.oneOf(['text', 'number', 'date', 'password']),
     label: PropTypes.string,
     placeholder: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     isFullWidth: PropTypes.bool,
 };
 Input.defaultProps = {

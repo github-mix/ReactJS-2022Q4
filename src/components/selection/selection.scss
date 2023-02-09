@@ -3,7 +3,7 @@
 .c-selection {
     display: inline-block;
     white-space: nowrap;
-    font: 16px/20px var(--font-family--primary);
+    font: 1rem/20px var(--font-family--primary);
 
     > select {
         height: var(--height--default-control);

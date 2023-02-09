@@ -17,12 +17,7 @@ function MovieCardsGrid(props) {
             <Grid gap="default">
                 {children.map((movie) => ({
                     id: movie.id,
-                    node: <MovieCard
-                        pictUrl={movie.pictUrl}
-                        title={movie.title}
-                        genres={movie.genres}
-                        year={movie.year}
-                    />,
+                    node: <MovieCard data={movie} />,
                 }))}
             </Grid>
         </>
@@ -33,9 +28,12 @@ MovieCardsGrid.propTypes = {
     children: PropTypes.arrayOf(PropTypes.exact({
         id: PropTypes.number,
         title: PropTypes.string,
-        year: PropTypes.number,
-        genres: PropTypes.arrayOf(PropTypes.string),
+        date: PropTypes.string, // 'YYYY-MM-DD'
         pictUrl: PropTypes.string,
+        rating: PropTypes.number,
+        genres: PropTypes.objectOf(PropTypes.bool),
+        year: PropTypes.number,
+        overview: PropTypes.string,
     })),
 };
 MovieCardsGrid.defaultProps = {

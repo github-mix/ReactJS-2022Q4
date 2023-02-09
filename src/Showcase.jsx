@@ -6,24 +6,22 @@ import Button from './components/button/button';
 import Textarea from './components/textarea/textarea';
 import GenreToggleBar from './components/genreToggleBar/genreToggleBar';
 import MovieCard from './components/movieCard/movieCard';
-import Popup from './components/popup/popup';
 
 function Showcase() {
     return (
         <div className="c-flex m-gap-8">
-            <Popup
-                title="Popup title"
-                body={<MovieCard />}
-                footer={(
-                    <>
-                        <Button mode="primary" size="small">primary</Button>
-                        <Button mode="secondary" size="small">secondary</Button>
-                    </>
-                )}
-            />
-
             <div style={{ width: '322px' }}>
-                <MovieCard title="Bohemian Rhapsody" genres={['Drama', 'Biography', 'Music']} year="2003" />
+                <MovieCard
+                    data={{
+                        title: 'Bohemian Rhapsody',
+                        genres: {
+                            action: true,
+                            adventure: true,
+                            fantasy: true,
+                        },
+                        year: 2003,
+                    }}
+                />
             </div>
 
             <GenreToggleBar

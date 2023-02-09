@@ -1,7 +1,7 @@
 @import "includes";
 
 .u-only-desktop {
-    @media screen and (max-width: $bp-desktop - 0.02) {
+    @media screen and (max-width: $bp-tablet - 0.02) {
         display: none !important;
     }
 }

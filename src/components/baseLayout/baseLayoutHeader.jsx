@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import BaseLayoutContext from './baseLayoutContext';
+import Logo from '../logo/logo';
+import MovieDescriptionHeader from '../../page/movieDescriptionHeader/movieDescriptionHeader';
 
 function BaseLayoutHeader(props) {
-    const { children, title } = props;
+    const { children } = props;
+
+    const { movieID, setMovieID } = useContext(BaseLayoutContext);
+
+    const headerContent = () => {
+        if (movieID) {
+            const showSearchHeader = () => setMovieID(0);
+
+            return <MovieDescriptionHeader movieID={movieID} showSearchHeader={showSearchHeader} />;
+        }
+
+        return children;
+    };
 
     return (
         <header className="c-base-layout__header">
             <div className="c-base-layout__header-content">
-                {title && (<h1 className="c-base-layout__header-title">{title}</h1>)}
-                {children}
+                <Logo />
+                {headerContent()}
             </div>
         </header>
     );
@@ -16,11 +31,9 @@ function BaseLayoutHeader(props) {
 
 BaseLayoutHeader.propTypes = {
     children: PropTypes.node,
-    title: PropTypes.string,
 };
 BaseLayoutHeader.defaultProps = {
     children: null,
-    title: null,
 };
 
 export default BaseLayoutHeader;

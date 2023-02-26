@@ -1,0 +1,32 @@
+@import "../../styles/includes";
+
+.c-search-header {
+	position: relative;
+	padding-top: 100px;
+	
+	@media screen and (min-width: $bp-tablet) {
+		padding-right: 120px;
+		padding-left: 120px;
+	}
+	
+	> .c-button {
+		position: absolute;
+		top: 15px;
+	}
+	
+	> .c-logo {
+		left: 0;
+	}
+	
+	> .c-button {
+		right: 0;
+	}
+}
+
+.c-search-header__title {
+	margin-bottom: 38px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font: 300 2.5rem/49px var(--font-family--primary);
+	color: var(--color--hex-white);
+}

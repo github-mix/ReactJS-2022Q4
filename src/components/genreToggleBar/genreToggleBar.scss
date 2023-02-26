@@ -31,6 +31,7 @@ $active-tab-marker-height: 3px;
     padding-bottom: $active-tab-marker-height;
     padding-left: $tab-side-padding;
     margin-bottom: -$active-tab-marker-height;
+    margin-right: -$tab-side-padding;
     margin-left: -$tab-side-padding;
 
     > button {

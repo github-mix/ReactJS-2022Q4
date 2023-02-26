@@ -15,9 +15,22 @@
     }
 }
 
-.c-movie-card__context-menu {
+.c-movie-card__clickable-area {
     position: absolute;
     z-index: 1;
+    inset: calc(var(--padding--default) * -1);
+    background: none;
+    border: none;
+    border-radius: var(--border--radius-default);
+    
+    &:focus {
+        @include focus-outline;
+    }
+}
+
+.c-movie-card__context-menu {
+    position: absolute;
+    z-index: 2;
     top: 14px;
     right: 14px;
     overflow: hidden;

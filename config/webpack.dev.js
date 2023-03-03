@@ -10,5 +10,7 @@ module.exports = {
         port: 3000,
         hot: true,
         open: true,
-    }
+        allowedHosts: ['.preview.csb.app'],
+        disableHostCheck: true,
+    },
 }

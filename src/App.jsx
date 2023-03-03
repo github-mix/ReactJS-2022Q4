@@ -21,6 +21,7 @@ function App() {
     return (
         <GlobalContext.Provider value={memoizedPopupSetting}>
             <Page />
+            111111111
             <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupContent={popupContent} />
         </GlobalContext.Provider>
     );

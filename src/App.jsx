@@ -11,15 +11,10 @@ function App() {
         setIsOpenPopup(true);
     };
 
-    const testGlobalContextFromMovieCard = (msg) => {
-        // eslint-disable-next-line no-console
-        console.warn('Catch the message from App.js:', msg);
-    };
-
-    const memoizedPopupSetting = useMemo(() => ({ showPopup, testGlobalContextFromMovieCard }), []);
+    const memoizedGlobalSetting = useMemo(() => ({ showPopup }), []);
 
     return (
-        <GlobalContext.Provider value={memoizedPopupSetting}>
+        <GlobalContext.Provider value={memoizedGlobalSetting}>
             <Page />
             <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupContent={popupContent} />
         </GlobalContext.Provider>

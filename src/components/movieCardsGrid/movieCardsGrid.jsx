@@ -15,9 +15,9 @@ function MovieCardsGrid(props) {
                 movies found
             </div>
             <Grid gap="default">
-                {children.map((movie) => ({
-                    id: movie.id,
-                    node: <MovieCard data={movie} />,
+                {Object.keys(children).map((movieID) => ({
+                    id: movieID,
+                    node: <MovieCard movieID={movieID} data={children[movieID]} />,
                 }))}
             </Grid>
         </>
@@ -25,8 +25,8 @@ function MovieCardsGrid(props) {
 }
 
 MovieCardsGrid.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.exact({
-        id: PropTypes.number,
+    children: PropTypes.objectOf(PropTypes.exact({
+        // id: PropTypes.number,
         title: PropTypes.string,
         date: PropTypes.string, // 'YYYY-MM-DD'
         pictUrl: PropTypes.string,

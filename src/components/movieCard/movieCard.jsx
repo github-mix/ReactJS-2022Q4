@@ -1,17 +1,19 @@
 import './movieCard.scss';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ShowPopup from '../showPopup/showPopup';
 import Button from '../button/button';
 import MoviePopupForm from '../moviePopupForm/moviePopupForm';
+import BaseLayoutContext from '../baseLayout/baseLayoutContext';
 
 function MovieCard(props) {
-    const { data } = props;
+    const { movieID, data } = props;
     const {
         title, genres, year, pictUrl,
     } = data;
     const [isOpenContextMenu, setOpenContextMenu] = useState(false);
+    const { setMovieID } = useContext(BaseLayoutContext);
     const contextMenuClassNames = classNames('c-movie-card__context-menu', {
         'm-open': isOpenContextMenu,
     });
@@ -20,8 +22,18 @@ function MovieCard(props) {
         setOpenContextMenu(!isOpenContextMenu);
     };
 
+    const handleClickOnCard = () => {
+        setMovieID(movieID);
+    };
+
     return (
         <div className="c-movie-card" onMouseLeave={() => { setOpenContextMenu(false); }}>
+            <button
+                type="button"
+                aria-label="card"
+                className="c-movie-card__clickable-area"
+                onClick={handleClickOnCard}
+            />
             <div className={contextMenuClassNames}>
                 <button
                     type="button"
@@ -64,8 +76,8 @@ function MovieCard(props) {
 }
 
 MovieCard.propTypes = {
+    movieID: PropTypes.string.isRequired,
     data: PropTypes.exact({
-        id: PropTypes.number,
         title: PropTypes.string,
         date: PropTypes.string, // 'YYYY-MM-DD'
         pictUrl: PropTypes.string,
@@ -77,7 +89,6 @@ MovieCard.propTypes = {
 };
 MovieCard.defaultProps = {
     data: {
-        id: null,
         title: '[No title]',
         date: null, // 'YYYY-MM-DD'
         pictUrl: 'https://via.placeholder.com/644x912.png?text=No+picture',

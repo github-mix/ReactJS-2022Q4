@@ -1,45 +1,42 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import BaseLayout from '../components/baseLayout/baseLayout';
 import Logo from '../components/logo/logo';
-import AddMoviePopupButton from './addMoviePopupButton/AddMoviePopupButton';
-import Input from '../components/input/input';
-import Button from '../components/button/button';
 import GenreToggleBar from '../components/genreToggleBar/genreToggleBar';
 import ErrorBoundary from '../components/errorBoundary/errorBoundary';
 import MovieCardsGrid from '../components/movieCardsGrid/movieCardsGrid';
 import movies from '../mock/movies';
 import { GENRES } from '../globalConstants';
+import BaseLayoutContext from '../components/baseLayout/baseLayoutContext';
+import SearchHeader from './searchHeader/searchHeader';
 
 function Page() {
+    const [movieID, setMovieID] = useState(0);
+    const memoizedmovieIDValue = useMemo(() => ({ movieID, setMovieID }), [movieID]);
+
     return (
-        <BaseLayout>
-            <BaseLayout.Header title="FIND YOUR MOVIE">
-                <Logo />
-                <AddMoviePopupButton />
-                <div className="c-flex m-gap-3">
-                    <div className="c-flex__cell m-grow-1">
-                        <Input isFullWidth placeholder="What do you want to watch?" />
-                    </div>
-                    <Button mode="primary">search</Button>
-                </div>
-            </BaseLayout.Header>
-            <BaseLayout.Aside>
-                <GenreToggleBar
-                    tabs={Object.keys(GENRES)}
-                    sortOptions={['Option 1', 'Option 2', 'Option 3']}
-                />
-            </BaseLayout.Aside>
-            <BaseLayout.Main>
-                <ErrorBoundary>
-                    <MovieCardsGrid>
-                        {movies}
-                    </MovieCardsGrid>
-                </ErrorBoundary>
-            </BaseLayout.Main>
-            <BaseLayout.Footer>
-                <Logo />
-            </BaseLayout.Footer>
-        </BaseLayout>
+        <BaseLayoutContext.Provider value={memoizedmovieIDValue}>
+            <BaseLayout>
+                <BaseLayout.Header>
+                    <SearchHeader />
+                </BaseLayout.Header>
+                <BaseLayout.Aside>
+                    <GenreToggleBar
+                        tabs={Object.keys(GENRES)}
+                        sortOptions={['Option 1', 'Option 2', 'Option 3']}
+                    />
+                </BaseLayout.Aside>
+                <BaseLayout.Main>
+                    <ErrorBoundary>
+                        <MovieCardsGrid>
+                            {movies}
+                        </MovieCardsGrid>
+                    </ErrorBoundary>
+                </BaseLayout.Main>
+                <BaseLayout.Footer>
+                    <Logo />
+                </BaseLayout.Footer>
+            </BaseLayout>
+        </BaseLayoutContext.Provider>
     );
 }
 

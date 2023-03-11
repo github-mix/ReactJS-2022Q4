@@ -12,6 +12,7 @@ function Showcase() {
         <div className="c-flex m-gap-8">
             <div style={{ width: '322px' }}>
                 <MovieCard
+                    movieID="test"
                     data={{
                         title: 'Bohemian Rhapsody',
                         genres: {

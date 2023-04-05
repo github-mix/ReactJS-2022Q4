@@ -1,23 +1,30 @@
 import React, { useState, useMemo } from 'react';
+import { Provider } from 'react-redux';
 import Page from './page/page';
-import Popup from './components/popup/popup';
+import Portal from './components/portal/portal';
 import GlobalContext from './GlobalContext';
+import store from './store/store';
 
 function App() {
-    const [isOpenPopup, setIsOpenPopup] = useState(false);
-    const [popupContent, setPopupContent] = useState(null);
-    const showPopup = (content) => {
-        setPopupContent(content);
-        setIsOpenPopup(true);
+    const [isOpenPortal, setIsOpenPortal] = useState(false);
+    const [portalContent, setPortalContent] = useState(null);
+    const showPortal = (content) => {
+        setPortalContent(content);
+        setIsOpenPortal(true);
+    };
+    const hidePortal = () => {
+        setIsOpenPortal(false);
     };
 
-    const memoizedGlobalSetting = useMemo(() => ({ showPopup }), []);
+    const memoizedGlobalSetting = useMemo(() => ({ showPortal, hidePortal }), []);
 
     return (
-        <GlobalContext.Provider value={memoizedGlobalSetting}>
-            <Page />
-            <Popup isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} popupContent={popupContent} />
-        </GlobalContext.Provider>
+        <Provider store={store}>
+            <GlobalContext.Provider value={memoizedGlobalSetting}>
+                <Page />
+                <Portal isOpenPortal={isOpenPortal} setIsOpenPortal={setIsOpenPortal} portalContent={portalContent} />
+            </GlobalContext.Provider>
+        </Provider>
     );
 }
 

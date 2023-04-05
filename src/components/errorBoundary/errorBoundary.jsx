@@ -1,17 +1,35 @@
 import './errorBoundary.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-function OopsText() {
-    return <h2 className="c-oops-text">Oops, something went wrong...</h2>;
+function OopsText(props) {
+    const { message } = props;
+
+    return (
+        <>
+            <h2 className="c-oops-text">Oops, something went wrong...</h2>
+            <p>
+                <b>Error message:</b>
+                {' '}
+                {message}
+            </p>
+        </>
+    );
 }
+
+OopsText.propTypes = {
+    message: PropTypes.string,
+};
+OopsText.defaultProps = {
+    message: null,
+};
 
 function ErrorBoundary(props) {
     const { children } = props;
+    const error = useSelector((state) => state.error);
 
-    const isEverythingOK = true;
-
-    return isEverythingOK ? children : <OopsText />;
+    return error ? <OopsText message={error.message} /> : children;
 }
 
 ErrorBoundary.propTypes = {

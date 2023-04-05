@@ -1,19 +1,21 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import BaseLayoutContext from './baseLayoutContext';
 import Logo from '../logo/logo';
 import MovieDescriptionHeader from '../../page/movieDescriptionHeader/movieDescriptionHeader';
 
 function BaseLayoutHeader(props) {
     const { children } = props;
-
     const { movieID, setMovieID } = useContext(BaseLayoutContext);
+    const movies = useSelector((state) => state.moviesData.data);
+    const movie = movies.find((item) => item.id === movieID);
 
     const headerContent = () => {
-        if (movieID) {
+        if (movie) {
             const showSearchHeader = () => setMovieID(0);
 
-            return <MovieDescriptionHeader movieID={movieID} showSearchHeader={showSearchHeader} />;
+            return <MovieDescriptionHeader movie={movie} showSearchHeader={showSearchHeader} />;
         }
 
         return children;

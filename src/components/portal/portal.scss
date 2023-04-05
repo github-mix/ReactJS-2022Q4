@@ -1,0 +1,38 @@
+@import "../../styles/includes";
+
+$portal-padding: 60px;
+$portal-small-padding: 20px;
+
+.c-portal {
+    z-index: var(--z-index--portal);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(var(--color--rgb-mine-shaft) / 89%);
+    backdrop-filter: blur(4px);
+}
+
+.c-portal__window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.c-portal__close-portal-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: var(--size--min-clickable-area);
+    height: var(--size--min-clickable-area);
+    border: none;
+    border-radius: var(--border--radius-default);
+    background: url("../../icons/cross.svg") no-repeat 50% 50% / 22px;
+    cursor: pointer;
+
+    &:focus {
+        @include focus-outline;
+    }
+}

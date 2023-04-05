@@ -4,101 +4,70 @@ $popup-padding: 60px;
 $popup-small-padding: 20px;
 
 .c-popup {
-    z-index: var(--z-index--popup);
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(var(--color--rgb-mine-shaft) / 89%);
-    backdrop-filter: blur(4px);
-}
-
-.c-popup__window {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    padding-top: $popup-small-padding;
-    width: max-content;
-    max-width: 100vw;
-    min-height: 352px;
-    max-height: 100vh;
-    box-sizing: border-box;
-    background: var(--color--hex-mine-shaft);
-    box-shadow:
-        0 0 2px rgba(var(--color--rgb-black) / 10%),
-        0 2px 10px rgba(var(--color--rgb-black) / 7%),
-        0 10px 20px rgba(var(--color--rgb-black) / 5%),
-        0 10px 50px rgba(var(--color--rgb-black) / 5%);
-    transform: translate(-50%, -50%);
-
-    @media screen and (min-width: $bp-tablet) {
-        min-width: 686px;
-        max-width: 90vw;
-        max-height: 90vh;
-        padding-top: $popup-padding;
-    }
-}
-
-.c-popup__close-popup-button {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    width: var(--size--min-clickable-area);
-    height: var(--size--min-clickable-area);
-    border: none;
-    border-radius: var(--border--radius-default);
-    background: url("../../icons/cross.svg") no-repeat 50% 50% / 22px;
-    cursor: pointer;
-
-    &:focus {
-        @include focus-outline;
-    }
+	display: flex;
+	flex-direction: column;
+	padding-top: $popup-small-padding;
+	width: max-content;
+	max-width: 100vw;
+	min-height: 352px;
+	max-height: 100vh;
+	box-sizing: border-box;
+	background: var(--color--hex-mine-shaft);
+	box-shadow:
+			0 0 2px rgba(var(--color--rgb-black) / 10%),
+			0 2px 10px rgba(var(--color--rgb-black) / 7%),
+			0 10px 20px rgba(var(--color--rgb-black) / 5%),
+			0 10px 50px rgba(var(--color--rgb-black) / 5%);
+	
+	@media screen and (min-width: $bp-tablet) {
+		min-width: 686px;
+		max-width: 90vw;
+		max-height: 90vh;
+		padding-top: $popup-padding;
+	}
 }
 
 .c-popup__header {
-    padding: 0 $popup-small-padding 20px;
-    font: 300 2.5rem/49px var(--font-family--primary);
-    color: var(--color--hex-white);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    @media screen and (min-width: $bp-tablet) {
-        padding-right: $popup-padding;
-        padding-left: $popup-padding;
-    }
+	padding: 0 $popup-small-padding 20px;
+	font: 300 2.5rem/49px var(--font-family--primary);
+	color: var(--color--hex-white);
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	
+	@media screen and (min-width: $bp-tablet) {
+		padding-right: $popup-padding;
+		padding-left: $popup-padding;
+	}
 }
 
 .c-popup__body {
-    flex-grow: 1;
-    overflow: auto;
-    padding: 20px $popup-small-padding 30px;
-
-    @media screen and (min-width: $bp-tablet) {
-        padding-right: $popup-padding;
-        padding-left: $popup-padding;
-    }
+	flex-grow: 1;
+	overflow: auto;
+	padding: 20px $popup-small-padding 30px;
+	
+	@media screen and (min-width: $bp-tablet) {
+		padding-right: $popup-padding;
+		padding-left: $popup-padding;
+	}
 }
 
 .c-popup__footer {
-    padding: 30px $popup-small-padding $popup-small-padding;
-
-    @media screen and (min-width: $bp-tablet) {
-        padding-right: $popup-padding;
-        padding-bottom: $popup-padding;
-        padding-left: $popup-padding;
-    }
-
-    &.m-has-only-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px;
-
-        @media screen and (min-width: $bp-tablet) {
-            justify-content: flex-end;
-        }
-    }
+	padding: 30px $popup-small-padding $popup-small-padding;
+	
+	@media screen and (min-width: $bp-tablet) {
+		padding-right: $popup-padding;
+		padding-bottom: $popup-padding;
+		padding-left: $popup-padding;
+	}
+	
+	&.m-has-only-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 12px;
+		
+		@media screen and (min-width: $bp-tablet) {
+			justify-content: flex-end;
+		}
+	}
 }

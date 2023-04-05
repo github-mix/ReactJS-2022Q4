@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 function Button(props) {
     const {
-        children, mode, size, onClick, myRef,
+        children, type, mode, size, onClick, myRef,
     } = props;
     const className = classNames('c-button', {
         'm-primary': mode === 'primary',
@@ -14,18 +14,20 @@ function Button(props) {
         'm-small': size === 'small',
     });
 
-    return <button ref={myRef} type="button" className={className} onClick={onClick}>{children}</button>;
+    return <button ref={myRef} type={type} className={className} onClick={onClick}>{children}</button>;
 }
 
 Button.propTypes = {
     children: PropTypes.node,
+    type: PropTypes.string,
     mode: PropTypes.oneOf(['default', 'primary', 'secondary', 'transparent']),
     size: PropTypes.oneOf(['default', 'small']),
     onClick: PropTypes.func,
-    myRef: PropTypes.shape({ current: PropTypes.element }),
+    myRef: PropTypes.exact({ current: PropTypes.element }),
 };
 Button.defaultProps = {
     children: null,
+    type: 'button',
     mode: 'default',
     size: 'default',
     onClick: null,

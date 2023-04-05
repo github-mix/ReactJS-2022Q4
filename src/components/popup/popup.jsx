@@ -1,54 +1,25 @@
 import './popup.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import PopupHeader from './popupHeader';
+import PopupBody from './popupBody';
+import PopupFooter from './popupFooter';
 
 function Popup(props) {
-    const { isOpenPopup, setIsOpenPopup, popupContent } = props;
+    const { children } = props;
 
-    if (!isOpenPopup) return false;
-
-    return (
-        <div className="c-popup">
-            <div className="c-popup__window">
-                <button
-                    type="button"
-                    className="c-popup__close-popup-button"
-                    aria-label="Close popup"
-                    onClick={() => setIsOpenPopup(false)}
-                />
-                <div className="c-popup__header">{popupContent.title}</div>
-                <div className="c-popup__body">{popupContent.body}</div>
-                {popupContent.footer && <div className="c-popup__footer">{popupContent.footer}</div>}
-                {popupContent.actionsFooter && (
-                    <div className="c-popup__footer m-has-only-buttons">
-                        {popupContent.actionsFooter}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+    return <div className="c-popup">{children}</div>;
 }
 
 Popup.propTypes = {
-    isOpenPopup: PropTypes.bool,
-    setIsOpenPopup: PropTypes.func,
-    popupContent: PropTypes.exact({
-        title: PropTypes.string,
-        body: PropTypes.node,
-        footer: PropTypes.node,
-        actionsFooter: PropTypes.node,
-    }),
+    children: PropTypes.node,
+};
+Popup.defaultProps = {
+    children: null,
 };
 
-Popup.defaultProps = {
-    isOpenPopup: false,
-    setIsOpenPopup: null,
-    popupContent: {
-        title: null,
-        body: null,
-        footer: null,
-        actionsFooter: null,
-    },
-};
+Popup.Header = PopupHeader;
+Popup.Body = PopupBody;
+Popup.Footer = PopupFooter;
 
 export default Popup;

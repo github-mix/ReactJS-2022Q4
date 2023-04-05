@@ -18,10 +18,7 @@ function Grid(props) {
 
 Grid.propTypes = {
     children: PropTypes.arrayOf(PropTypes.exact({
-        id: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-        ]),
+        id: PropTypes.number,
         node: PropTypes.node,
     })),
     gap: PropTypes.oneOf(['none', 'default']),

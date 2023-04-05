@@ -4,12 +4,12 @@ import BaseField from '../baseField/baseField';
 
 function Input(props) {
     const {
-        type, label, placeholder, value, isFullWidth,
+        type, label, placeholder, value, isFullWidth, readonly, onChange,
     } = props;
 
     return (
         <BaseField label={label} isFullWidth={isFullWidth}>
-            <input type={type} defaultValue={value} placeholder={placeholder} />
+            <input type={type} defaultValue={value} placeholder={placeholder} readOnly={readonly} onChange={onChange} />
         </BaseField>
     );
 }
@@ -23,6 +23,8 @@ Input.propTypes = {
         PropTypes.number,
     ]),
     isFullWidth: PropTypes.bool,
+    readonly: PropTypes.bool,
+    onChange: PropTypes.func,
 };
 Input.defaultProps = {
     type: 'text',
@@ -30,6 +32,8 @@ Input.defaultProps = {
     placeholder: null,
     value: null,
     isFullWidth: false,
+    readonly: false,
+    onChange: null,
 };
 
 export default Input;

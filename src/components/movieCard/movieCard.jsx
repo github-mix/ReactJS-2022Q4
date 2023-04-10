@@ -1,15 +1,14 @@
 import './movieCard.scss';
-import React, {
-    useState, useContext, useEffect, useRef,
-} from 'react';
+import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Form, Formik } from 'formik';
 import ShowPortal from '../showPortal/showPortal';
 import Button from '../button/button';
 import MoviePopupForm from '../moviePopupForm/moviePopupForm';
 import BaseLayoutContext from '../baseLayout/baseLayoutContext';
-import { removeMovieSuccess, updateMovieSuccess } from '../../store/actions';
+import { removeMovie, updateMovie } from '../../store/actions';
 import globalContext from '../../GlobalContext';
 import Popup from '../popup/popup';
 
@@ -19,14 +18,12 @@ function MovieCard(props) {
         id, title, release_date, genres, poster_path,
     } = data;
     const [isOpenContextMenu, setOpenContextMenu] = useState(false);
-    const [movieData, setMovieData] = useState(data);
     const { setMovieID } = useContext(BaseLayoutContext);
     const { hidePortal } = useContext(globalContext);
     const dispatch = useDispatch();
     const contextMenuClassNames = classNames('c-movie-card__context-menu', {
         'm-open': isOpenContextMenu,
     });
-    const movieDataRef = useRef(data);
 
     const contextMenuToggleHandler = () => {
         setOpenContextMenu(!isOpenContextMenu);
@@ -36,19 +33,15 @@ function MovieCard(props) {
         setMovieID(id);
     };
 
-    const handleEditMovieClick = () => {
-        dispatch(updateMovieSuccess(movieDataRef.current));
+    const handleEditMovieSubmit = (values) => {
+        dispatch(updateMovie(values));
         hidePortal();
     };
 
     const handleRemoveMovieClick = () => {
-        dispatch(removeMovieSuccess(id));
+        dispatch(removeMovie(id));
         hidePortal();
     };
-
-    useEffect(() => {
-        movieDataRef.current = movieData;
-    }, [movieData]);
 
     return (
         <div className="c-movie-card" onMouseLeave={() => { setOpenContextMenu(false); }}>
@@ -68,18 +61,20 @@ function MovieCard(props) {
                 />
                 <ShowPortal
                     content={(
-                        <form>
-                            <Popup>
-                                <Popup.Header>Edit movie</Popup.Header>
-                                <Popup.Body>
-                                    <MoviePopupForm data={data} setMovieData={setMovieData} />
-                                </Popup.Body>
-                                <Popup.Footer isOnlyButtons>
-                                    <Button type="reset" mode="secondary" size="small">reset</Button>
-                                    <Button mode="primary" size="small" onClick={handleEditMovieClick}>submit</Button>
-                                </Popup.Footer>
-                            </Popup>
-                        </form>
+                        <Formik initialValues={data} onSubmit={handleEditMovieSubmit}>
+                            <Form>
+                                <Popup>
+                                    <Popup.Header>Edit movie</Popup.Header>
+                                    <Popup.Body>
+                                        <MoviePopupForm />
+                                    </Popup.Body>
+                                    <Popup.Footer isOnlyButtons>
+                                        <Button type="reset" mode="secondary" size="small">reset</Button>
+                                        <Button type="submit" mode="primary" size="small">submit</Button>
+                                    </Popup.Footer>
+                                </Popup>
+                            </Form>
+                        </Formik>
                     )}
                 >
                     <button type="button" className="c-movie-card__context-menu-option">Edit</button>
@@ -132,12 +127,12 @@ MovieCard.propTypes = {
 MovieCard.defaultProps = {
     data: {
         id: 0,
-        title: '[No title]',
+        title: '',
         tagline: null,
         vote_average: null,
         vote_count: null,
         release_date: null,
-        poster_path: 'https://via.placeholder.com/644x912.png?text=No+picture',
+        poster_path: '',
         overview: null,
         budget: null,
         revenue: null,

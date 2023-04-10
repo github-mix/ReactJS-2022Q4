@@ -31,7 +31,7 @@ function Page() {
     };
 
     useEffect(() => {
-        dispatch(fetchMovies(state.outputParams));
+        dispatch(fetchMovies());
     }, [dispatch]);
 
     return (

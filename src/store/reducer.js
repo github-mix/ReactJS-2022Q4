@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import ACTIONS from './actionTypes';
-import { GENRES } from '../globalConstants';
+import { GENRES, SORT_ORDER, SORTBY } from '../globalConstants';
 // import movies from '../mock/movies';
 
 // const reducer = (state = movies.data, action) => { // legacy approach
@@ -20,7 +20,11 @@ const initialState = {
     isLoading: false,
     error: null,
     outputParams: {
+        search: '',
+        searchBy: 'title',
         filter: GENRES.ADVENTURE,
+        sortBy: SORTBY.RELEASE_DATE,
+        sortOrder: SORT_ORDER.DESC,
     },
     moviesData: {
         data: [],
@@ -48,22 +52,6 @@ const reducer = createReducer(initialState, (builder) => {
                 isLoading: false,
             }
         })
-        .addCase(ACTIONS.ADD_MOVIE_SUCCESS, (state, action) => {
-            const seconds = new Date().getTime() / 1000;
-
-            state.moviesData.data.push({
-                ...action.payload.movie,
-                id: Math.trunc(seconds),
-            });
-        })
-        .addCase(ACTIONS.UPDATE_MOVIE_SUCCESS, (state, action) => {
-            state.moviesData.data = state.moviesData.data.map((movie) => (
-                (movie.id === action.payload.movie.id) ? action.payload.movie : movie
-            ))
-        })
-        .addCase(ACTIONS.REMOVE_MOVIE_SUCCESS, (state, action) => {
-            state.moviesData.data = state.moviesData.data.filter((movie) => movie.id !== action.payload.id);
-        });
     /* eslint-enable */
 });
 

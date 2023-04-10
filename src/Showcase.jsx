@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Formik } from 'formik';
 import Input from './components/input/input';
 import Combobox from './components/combobox/combobox';
 import Checkbox from './components/checkbox/checkbox';
@@ -37,29 +38,43 @@ function Showcase() {
 
                 <GenreToggleBar
                     tabs={['All', 'Documentary', 'Comedy', 'Horror', 'Crime']}
-                    // sortOptions={['Option 1', 'Option 2', 'Option 3']}
                 />
 
-                <Input type="text" label="text input" value="txt" />
+                <Formik initialValues={{ testText: '' }} onSubmit={null}>
+                    <Input name="testText" type="text" label="text input" value="txt" />
+                </Formik>
 
-                <Input type="password" label="password input" placeholder="password" />
+                <Formik initialValues={{ testPassword: '' }} onSubmit={null}>
+                    <Input name="testPassword" type="password" label="password input" placeholder="password" />
+                </Formik>
 
-                <Input type="date" label="date input" />
+                <Formik initialValues={{ testDate: '' }} onSubmit={null}>
+                    <Input name="testDate" type="date" label="date input" />
+                </Formik>
 
                 <Combobox label="combobox">
                     <div className="c-flex m-column m-gap-2">
-                        <Checkbox defaultChecked>Crime</Checkbox>
-                        <Checkbox>Documentary </Checkbox>
-                        <Checkbox defaultChecked>Horror</Checkbox>
-                        <Checkbox>Comedy</Checkbox>
+                        <Formik initialValues={{ testCheckboxes: ['crime', 'horror'] }} onSubmit={null}>
+                            <>
+                                <Checkbox name="testCheckboxes" value="crime">Crime</Checkbox>
+                                <Checkbox name="testCheckboxes" value="documentary">Documentary</Checkbox>
+                                <Checkbox name="testCheckboxes" value="horror">Horror</Checkbox>
+                                <Checkbox name="testCheckboxes" value="comedy">Comedy</Checkbox>
+                            </>
+                        </Formik>
                     </div>
                 </Combobox>
 
-                <Textarea label="textarea">textarea</Textarea>
+                <Formik initialValues={{ testTextarea: 'textarea' }} onSubmit={null}>
+                    <Textarea name="testTextarea" label="textarea" />
+                </Formik>
 
-                <Checkbox>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean fermentum arcu nec tempus elementum.
-                </Checkbox>
+                <Formik initialValues={{ testCheckbox: [] }} onSubmit={null}>
+                    <Checkbox name="testCheckbox" value="test">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Aenean fermentum arcu nec tempus elementum.
+                    </Checkbox>
+                </Formik>
 
                 <Button>default</Button>
 

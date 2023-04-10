@@ -1,13 +1,14 @@
 import './checkbox.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Field } from 'formik';
 
 function Checkbox(props) {
-    const { children, defaultChecked, onChange } = props;
+    const { children, name, value } = props;
 
     return (
         <label className="c-checkbox">
-            <input className="c-checkbox__input" type="checkbox" defaultChecked={defaultChecked} onChange={onChange} />
+            <Field name={name} type="checkbox" className="c-checkbox__input" value={value} />
             <span className="c-checkbox__wrapper">{children}</span>
         </label>
     );
@@ -15,13 +16,13 @@ function Checkbox(props) {
 
 Checkbox.propTypes = {
     children: PropTypes.string,
-    defaultChecked: PropTypes.bool,
-    onChange: PropTypes.func,
+    name: PropTypes.string,
+    value: PropTypes.string,
 };
 Checkbox.defaultProps = {
     children: null,
-    defaultChecked: false,
-    onChange: null,
+    name: null,
+    value: null,
 };
 
 export default Checkbox;

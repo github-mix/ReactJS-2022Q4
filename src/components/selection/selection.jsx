@@ -1,38 +1,37 @@
 import './selection.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Field } from 'formik';
 
 function Selection(props) {
     const {
-        children, label, selectedIndex, handleSelectChange,
+        children, name, label, handleChange,
     } = props;
 
     return (
         <label className="c-selection">
             <span className="c-selection__label">{label}</span>
-            <select onChange={handleSelectChange} defaultValue={selectedIndex}>
+            <Field name={name} as="select" onChange={handleChange}>
                 <option value={-1} disabled>---</option>
-                {children.map((option, index) => (
-                    <option key={option.name} value={index}>{option.name}</option>
+                {children.map((optionName, index) => (
+                    <option key={optionName} value={index}>{optionName}</option>
                 ))}
-            </select>
+            </Field>
         </label>
     );
 }
 
 Selection.propTypes = {
-    children: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
-    })),
+    children: PropTypes.arrayOf(PropTypes.string),
+    name: PropTypes.string,
     label: PropTypes.string,
-    selectedIndex: PropTypes.number,
-    handleSelectChange: PropTypes.func,
+    handleChange: PropTypes.func,
 };
 Selection.defaultProps = {
     children: null,
+    name: null,
     label: null,
-    selectedIndex: -1,
-    handleSelectChange: null,
+    handleChange: null,
 };
 
 export default Selection;

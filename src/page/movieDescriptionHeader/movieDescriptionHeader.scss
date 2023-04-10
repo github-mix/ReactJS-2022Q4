@@ -4,109 +4,115 @@ $img-height: 486px;
 $raiting-block-size: 60px;
 
 .c-movie-description {
-	position: relative;
-	padding: 80px 0 30px 0;
-	min-height: $img-height;
-	font: 300 2.5rem/49px var(--font-family--primary);
-	
-	@media screen and (min-width: $bp-tablet) {
-		padding-left: 380px;
-	}
+    position: relative;
+    padding: 80px 0 30px;
+    min-height: $img-height;
+    font: 300 2.5rem/49px var(--font-family--primary);
 
-	> .c-button {
-		position: absolute;
-		top: 15px;
-		right: 0;
-	}
+    @media screen and (min-width: $bp-tablet) {
+        padding-left: 380px;
+    }
+
+    > .c-button {
+        position: absolute;
+        top: 15px;
+        right: 0;
+    }
 }
+
 .c-movie-description__img {
-	position: absolute;
-	left: 0;
-	width: 323px;
-	max-width: 84vw;
-	height: $img-height;
-	overflow: hidden;
-	
-	&.m-not-loaded img {
-		opacity: 0;
-	}
-	
-	> img {
-		position: absolute;
-		inset: 50% auto auto 50%;
-		width: 100%;
-		transform: translate(-50%, -50%);
-		transition: opacity var(--delay--default);
-	}
+    position: absolute;
+    left: 0;
+    width: 323px;
+    max-width: 84vw;
+    height: $img-height;
+    overflow: hidden;
+
+    &.m-not-loaded img {
+        opacity: 0;
+    }
+
+    > img {
+        position: absolute;
+        inset: 50% auto auto 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        transition: opacity var(--delay--default);
+    }
 }
+
 .c-movie-description__title {
-	position: relative;
-	padding-right: $raiting-block-size + 20px;
-	background: rgba(var(--color--rgb-black) / 70%);
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	color: var(--color--hex-white);
-	
-	@media screen and (min-width: $bp-tablet) {
-		display: inline-block;
-		background: none;
-	}
-	
-	+ .c-movie-description__genres {
-		margin-top: 9px;
-	}
+    position: relative;
+    padding-right: $raiting-block-size + 20px;
+    background: rgba(var(--color--rgb-black) / 70%);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color--hex-white);
+
+    @media screen and (min-width: $bp-tablet) {
+        display: inline-block;
+        background: none;
+    }
+
+    + .c-movie-description__genres {
+        margin-top: 9px;
+    }
 }
+
 .c-movie-description__rating {
-	position: absolute;
-	top: -5px;
-	right: 0;
-	width: $raiting-block-size;
-	height: $raiting-block-size;
-	border-radius: 50%;
-	outline: 1px solid var(--color--hex-white);
-	line-height: $raiting-block-size;
-	text-align: center;
-	font-size: 1.25rem;
+    position: absolute;
+    top: -5px;
+    right: 0;
+    width: $raiting-block-size;
+    height: $raiting-block-size;
+    border-radius: 50%;
+    outline: 1px solid var(--color--hex-white);
+    line-height: $raiting-block-size;
+    text-align: center;
+    font-size: 1.25rem;
 }
+
 .c-movie-description__genres {
-	position: relative;
-	background: rgba(var(--color--rgb-black) / 70%);
-	line-height: 17px;
-	font-size: 0.875rem;
-	
-	@media screen and (min-width: $bp-tablet) {
-		opacity: 0.5;
-		background: none;
-	}
-	
-	+ .c-movie-description__year {
-		margin-top: 30px;
-	}
+    position: relative;
+    background: rgba(var(--color--rgb-black) / 70%);
+    line-height: 17px;
+    font-size: 0.875rem;
+
+    @media screen and (min-width: $bp-tablet) {
+        opacity: 0.5;
+        background: none;
+    }
+
+    + .c-movie-description__year {
+        margin-top: 30px;
+    }
 }
+
 .c-movie-description__year {
-	position: relative;
-	background: rgba(var(--color--rgb-black) / 70%);
-	line-height: 29px;
-	font-size: 1.5rem;
-	color: var(--color--hex-carnation);
-	
-	@media screen and (min-width: $bp-tablet) {
-		background: none;
-	}
-	
-	+ .c-movie-description__info {
-		margin-top: 30px;
-	}
+    position: relative;
+    background: rgba(var(--color--rgb-black) / 70%);
+    line-height: 29px;
+    font-size: 1.5rem;
+    color: var(--color--hex-carnation);
+
+    @media screen and (min-width: $bp-tablet) {
+        background: none;
+    }
+
+    + .c-movie-description__info {
+        margin-top: 30px;
+    }
 }
+
 .c-movie-description__info {
-	position: relative;
-	background: rgba(var(--color--rgb-black) / 70%);
-	
-	@media screen and (min-width: $bp-tablet) {
-		background: none;
-	}
-	
-	opacity: 0.8;
-	line-height: 24px;
-	font-size: 1.25rem;
+    position: relative;
+    background: rgba(var(--color--rgb-black) / 70%);
+
+    @media screen and (min-width: $bp-tablet) {
+        background: none;
+    }
+
+    opacity: 0.8;
+    line-height: 24px;
+    font-size: 1.25rem;
 }

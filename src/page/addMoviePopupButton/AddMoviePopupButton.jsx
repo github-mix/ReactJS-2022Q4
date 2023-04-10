@@ -1,16 +1,15 @@
-import React, {
-    useContext, useEffect, useRef, useState,
-} from 'react';
+import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
+import { Form, Formik } from 'formik';
 import Button from '../../components/button/button';
 import ShowPortal from '../../components/showPortal/showPortal';
 import MoviePopupForm from '../../components/moviePopupForm/moviePopupForm';
-import { addMovieSuccess } from '../../store/actions';
+import { addMovie } from '../../store/actions';
 import globalContext from '../../GlobalContext';
 import Popup from '../../components/popup/popup';
 
 function AddMoviePopupButton() {
-    const emptyData = {
+    const initialValues = {
         title: '',
         tagline: '',
         vote_average: 0,
@@ -23,34 +22,30 @@ function AddMoviePopupButton() {
         genres: [],
         runtime: 0,
     };
-    const [movieData, setMovieData] = useState(emptyData);
     const { hidePortal } = useContext(globalContext);
-    const movieDataRef = useRef(emptyData);
     const dispatch = useDispatch();
-    const handleAddMovieClick = () => {
-        dispatch(addMovieSuccess(movieDataRef.current));
+    const handleAddMovieSubmit = (values) => {
+        dispatch(addMovie(values));
         hidePortal();
     };
-
-    useEffect(() => {
-        movieDataRef.current = movieData;
-    }, [movieData]);
 
     return (
         <ShowPortal
             content={(
-                <form>
-                    <Popup>
-                        <Popup.Header>Add movie</Popup.Header>
-                        <Popup.Body>
-                            <MoviePopupForm data={movieData} setMovieData={setMovieData} />
-                        </Popup.Body>
-                        <Popup.Footer isOnlyButtons>
-                            <Button type="reset" mode="secondary" size="small">reset</Button>
-                            <Button mode="primary" size="small" onClick={handleAddMovieClick}>submit</Button>
-                        </Popup.Footer>
-                    </Popup>
-                </form>
+                <Formik initialValues={initialValues} onSubmit={handleAddMovieSubmit}>
+                    <Form>
+                        <Popup>
+                            <Popup.Header>Add movie</Popup.Header>
+                            <Popup.Body>
+                                <MoviePopupForm />
+                            </Popup.Body>
+                            <Popup.Footer isOnlyButtons>
+                                <Button type="reset" mode="secondary" size="small">reset</Button>
+                                <Button type="submit" mode="primary" size="small">submit</Button>
+                            </Popup.Footer>
+                        </Popup>
+                    </Form>
+                </Formik>
             )}
         >
             <Button mode="transparent" size="small">

@@ -22,7 +22,7 @@
     background: none;
     border: none;
     border-radius: var(--border--radius-default);
-    
+
     &:focus {
         @include focus-outline;
     }

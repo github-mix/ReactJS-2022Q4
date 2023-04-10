@@ -1,16 +1,18 @@
 import './genreToggleBar.scss';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik } from 'formik';
 import Selection from '../selection/selection';
 import { GENRES, SORT_ORDER, SORTBY } from '../../globalConstants';
 import { fetchMovies } from '../../store/actions';
 
 function GenreToggleBar() {
     const dispatch = useDispatch();
-    const [activeTabName, setActiveTabName] = useState(GENRES.ADVENTURE);
+    const outputParams = useSelector((state) => state.outputParams);
     const tabs = Object.values(GENRES);
     const sortOptions = [
         {
+            id: 0,
             name: '▲ Release Date',
             params: {
                 sortBy: SORTBY.RELEASE_DATE,
@@ -18,6 +20,7 @@ function GenreToggleBar() {
             },
         },
         {
+            id: 1,
             name: '▼ Release Date',
             params: {
                 sortBy: SORTBY.RELEASE_DATE,
@@ -25,6 +28,7 @@ function GenreToggleBar() {
             },
         },
         {
+            id: 2,
             name: '▲ Vote Average',
             params: {
                 sortBy: SORTBY.VOTE_AVERAGE,
@@ -32,6 +36,7 @@ function GenreToggleBar() {
             },
         },
         {
+            id: 3,
             name: '▼ Vote Average',
             params: {
                 sortBy: SORTBY.VOTE_AVERAGE,
@@ -40,8 +45,19 @@ function GenreToggleBar() {
         },
     ];
 
-    const handleClick = (newActiveTabName) => {
-        setActiveTabName(newActiveTabName);
+    const getCurrentSelectedOption = () => {
+        const checkFullMatch = (item) => {
+            const isSortByEqual = item.params.sortBy === outputParams.sortBy;
+            const isSortOrder = item.params.sortOrder === outputParams.sortOrder;
+
+            return isSortByEqual && isSortOrder;
+        };
+        const index = sortOptions.find((item) => checkFullMatch(item)).id;
+
+        return (index >= 0) ? index : -1;
+    };
+
+    const handleTabClick = (newActiveTabName) => {
         dispatch(fetchMovies({ filter: newActiveTabName }));
     };
 
@@ -56,17 +72,29 @@ function GenreToggleBar() {
                     <button
                         key={buttonLabel}
                         type="button"
-                        className={`${activeTabName === buttonLabel ? 'm-active' : ''}`}
-                        onClick={() => handleClick(buttonLabel)}
+                        className={`${outputParams.filter === buttonLabel ? 'm-active' : ''}`}
+                        onClick={() => handleTabClick(buttonLabel)}
                     >
                         {buttonLabel}
                     </button>
                 ))}
             </div>
             <div className="c-genre-toggle-bar__content-from-right">
-                <Selection label="sort by" handleSelectChange={handleSelectChange}>
-                    {sortOptions}
-                </Selection>
+                <Formik initialValues={{ selectedOption: getCurrentSelectedOption() }} onSubmit={null}>
+                    {
+                        ({ handleChange }) => (
+                            <Selection
+                                name="selectedOption"
+                                handleChange={(e) => {
+                                    handleChange(e);
+                                    handleSelectChange(e);
+                                }}
+                            >
+                                {sortOptions.map((item) => item.name)}
+                            </Selection>
+                        )
+                    }
+                </Formik>
             </div>
         </div>
     );

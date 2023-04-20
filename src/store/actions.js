@@ -5,9 +5,10 @@ const updateTagline = (movie) => ({
     tagline: movie.overview.split('.')[0],
 });
 
-export const requestMovies = (outputParams) => ({
+let prevOutputParams = {};
+
+export const requestMovies = () => ({
     type: ACTIONS.REQUEST,
-    payload: { outputParams },
 });
 
 export const errorMovies = (error) => ({
@@ -31,15 +32,19 @@ export const fetchMovie = (id) => async (dispatch) => {
             data: [movie],
         }));
     } catch (error) {
-        dispatch(errorMovies(error));
+        dispatch(errorMovies(error.message));
     }
 };
 
-export const fetchMovies = (outputParams) => async (dispatch, getState) => {
-    dispatch(requestMovies(outputParams));
+export const fetchMovies = (outputParams = prevOutputParams) => async (dispatch) => {
+    prevOutputParams = outputParams;
+    dispatch(requestMovies());
 
     try {
-        const paramsArray = Object.entries(getState().outputParams).filter((item) => item[1]);
+        const paramsArray = Object.entries({
+            searchBy: 'title',
+            ...outputParams,
+        });
         const params = paramsArray.map((item) => item.join('=')).join('&');
         const urlParams = (params) ? `?${params}` : '';
         const response = await fetch(`http://localhost:4000/movies${urlParams}`);
@@ -47,7 +52,7 @@ export const fetchMovies = (outputParams) => async (dispatch, getState) => {
 
         dispatch(fetchMoviesSuccess(movies));
     } catch (error) {
-        dispatch(errorMovies(error));
+        dispatch(errorMovies(error.message));
     }
 };
 
@@ -68,7 +73,7 @@ export const addMovie = (movie) => async (dispatch) => {
             dispatch(fetchMovie(responseJSON.id));
         }
     } catch (error) {
-        dispatch(errorMovies(error));
+        dispatch(errorMovies(error.message));
     }
 };
 
@@ -89,7 +94,7 @@ export const updateMovie = (movie) => async (dispatch) => {
             dispatch(fetchMovies());
         }
     } catch (error) {
-        dispatch(errorMovies(error));
+        dispatch(errorMovies(error.message));
     }
 };
 
@@ -103,6 +108,6 @@ export const removeMovie = (id) => async (dispatch) => {
             alert('Error: the movie has not been removed');
         }
     } catch (error) {
-        dispatch(errorMovies(error));
+        dispatch(errorMovies(error.message));
     }
 };

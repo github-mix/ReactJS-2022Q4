@@ -27,9 +27,9 @@ OopsText.defaultProps = {
 
 function ErrorBoundary(props) {
     const { children } = props;
-    const error = useSelector((state) => state.error);
+    const errorMessage = useSelector((state) => state.error);
 
-    return error ? <OopsText message={error.message} /> : children;
+    return errorMessage ? <OopsText message={errorMessage} /> : children;
 }
 
 ErrorBoundary.propTypes = {

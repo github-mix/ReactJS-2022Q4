@@ -1,6 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
 import ACTIONS from './actionTypes';
-import { GENRES, SORT_ORDER, SORTBY } from '../globalConstants';
 // import movies from '../mock/movies';
 
 // const reducer = (state = movies.data, action) => { // legacy approach
@@ -19,13 +18,6 @@ import { GENRES, SORT_ORDER, SORTBY } from '../globalConstants';
 const initialState = {
     isLoading: false,
     error: null,
-    outputParams: {
-        search: '',
-        searchBy: 'title',
-        filter: GENRES.ADVENTURE,
-        sortBy: SORTBY.RELEASE_DATE,
-        sortOrder: SORT_ORDER.DESC,
-    },
     moviesData: {
         data: [],
     },
@@ -34,12 +26,8 @@ const initialState = {
 const reducer = createReducer(initialState, (builder) => {
     /* eslint-disable */
     builder
-        .addCase(ACTIONS.REQUEST, (state, action) => {
+        .addCase(ACTIONS.REQUEST, (state) => {
             state.isLoading = true;
-            state.outputParams = {
-                ...state.outputParams,
-                ...action.payload.outputParams,
-            }
         })
         .addCase(ACTIONS.ERROR, (state, action) => {
             state.error = action.payload.error;

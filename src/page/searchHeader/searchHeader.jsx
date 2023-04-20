@@ -1,25 +1,20 @@
 import './searchHeader.scss';
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import AddMoviePopupButton from '../addMoviePopupButton/AddMoviePopupButton';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
-import { fetchMovies } from '../../store/actions';
 
 function SearchHeader() {
-    const outputParams = useSelector((state) => state.outputParams);
+    const params = useParams();
+    const navigate = useNavigate();
     const initialValues = {
-        search: outputParams.search,
+        search: params.searchQuery,
     };
-    const dispatch = useDispatch();
-    const handleSubmit = (values) => {
-        const newOutputParams = (values.search) ? {
-            search: values.search,
-            filter: null,
-        } : { search: null };
 
-        dispatch(fetchMovies(newOutputParams));
+    const handleSubmit = (values) => {
+        navigate(`${values.search}`);
     };
 
     return (

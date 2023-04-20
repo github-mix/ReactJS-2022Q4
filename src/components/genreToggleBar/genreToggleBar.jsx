@@ -1,21 +1,27 @@
 import './genreToggleBar.scss';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { Formik } from 'formik';
+import { useSearchParams } from 'react-router-dom';
 import Selection from '../selection/selection';
-import { GENRES, SORT_ORDER, SORTBY } from '../../globalConstants';
-import { fetchMovies } from '../../store/actions';
+import {
+    GENRES, OUTPUT_PARAMS, SORT_ORDER, SORT_BY,
+} from '../../globalConstants';
 
 function GenreToggleBar() {
-    const dispatch = useDispatch();
-    const outputParams = useSelector((state) => state.outputParams);
+    const formikContext = {};
+    const [searchParams, setSearchParams] = useSearchParams();
+    const outputParams = {
+        [OUTPUT_PARAMS.FILTER]: searchParams.get(OUTPUT_PARAMS.FILTER),
+        [OUTPUT_PARAMS.SORT_BY]: searchParams.get(OUTPUT_PARAMS.SORT_BY),
+        [OUTPUT_PARAMS.SORT_ORDER]: searchParams.get(OUTPUT_PARAMS.SORT_ORDER),
+    };
     const tabs = Object.values(GENRES);
     const sortOptions = [
         {
             id: 0,
             name: '▲ Release Date',
             params: {
-                sortBy: SORTBY.RELEASE_DATE,
+                sortBy: SORT_BY.RELEASE_DATE,
                 sortOrder: SORT_ORDER.ASC,
             },
         },
@@ -23,7 +29,7 @@ function GenreToggleBar() {
             id: 1,
             name: '▼ Release Date',
             params: {
-                sortBy: SORTBY.RELEASE_DATE,
+                sortBy: SORT_BY.RELEASE_DATE,
                 sortOrder: SORT_ORDER.DESC,
             },
         },
@@ -31,7 +37,7 @@ function GenreToggleBar() {
             id: 2,
             name: '▲ Vote Average',
             params: {
-                sortBy: SORTBY.VOTE_AVERAGE,
+                sortBy: SORT_BY.VOTE_AVERAGE,
                 sortOrder: SORT_ORDER.ASC,
             },
         },
@@ -39,7 +45,7 @@ function GenreToggleBar() {
             id: 3,
             name: '▼ Vote Average',
             params: {
-                sortBy: SORTBY.VOTE_AVERAGE,
+                sortBy: SORT_BY.VOTE_AVERAGE,
                 sortOrder: SORT_ORDER.DESC,
             },
         },
@@ -47,52 +53,68 @@ function GenreToggleBar() {
 
     const getCurrentSelectedOption = () => {
         const checkFullMatch = (item) => {
-            const isSortByEqual = item.params.sortBy === outputParams.sortBy;
-            const isSortOrder = item.params.sortOrder === outputParams.sortOrder;
+            const isSortByEqual = item.params[OUTPUT_PARAMS.SORT_BY] === outputParams[OUTPUT_PARAMS.SORT_BY];
+            const isSortOrder = item.params[OUTPUT_PARAMS.SORT_ORDER] === outputParams[OUTPUT_PARAMS.SORT_ORDER];
 
             return isSortByEqual && isSortOrder;
         };
-        const index = sortOptions.find((item) => checkFullMatch(item)).id;
+        const index = sortOptions.find((item) => checkFullMatch(item))?.id;
 
         return (index >= 0) ? index : -1;
     };
 
+    const initialValues = { sortSelection: getCurrentSelectedOption() };
+
     const handleTabClick = (newActiveTabName) => {
-        dispatch(fetchMovies({ filter: newActiveTabName }));
+        setSearchParams({
+            [OUTPUT_PARAMS.FILTER]: newActiveTabName,
+        });
     };
 
     const handleSelectChange = (e) => {
-        dispatch(fetchMovies(sortOptions[e.target.value].params));
+        setSearchParams({ ...outputParams, ...sortOptions[e.target.value].params });
     };
+
+    useEffect(() => {
+        formikContext?.setFieldValue('sortSelection', getCurrentSelectedOption());
+    }, [outputParams[OUTPUT_PARAMS.SORT_BY], outputParams[OUTPUT_PARAMS.SORT_ORDER]]);
 
     return (
         <div className="c-genre-toggle-bar">
             <div className="c-genre-toggle-bar__toggle">
-                {tabs && tabs.map((buttonLabel) => (
-                    <button
-                        key={buttonLabel}
-                        type="button"
-                        className={`${outputParams.filter === buttonLabel ? 'm-active' : ''}`}
-                        onClick={() => handleTabClick(buttonLabel)}
-                    >
-                        {buttonLabel}
-                    </button>
-                ))}
+                {tabs && tabs.map((buttonLabel) => {
+                    const isActive = searchParams.get(OUTPUT_PARAMS.FILTER) === buttonLabel;
+
+                    return (
+                        <button
+                            key={buttonLabel}
+                            type="button"
+                            className={`${isActive ? 'm-active' : ''}`}
+                            onClick={() => handleTabClick(buttonLabel)}
+                        >
+                            {buttonLabel}
+                        </button>
+                    );
+                })}
             </div>
             <div className="c-genre-toggle-bar__content-from-right">
-                <Formik initialValues={{ selectedOption: getCurrentSelectedOption() }} onSubmit={null}>
+                <Formik initialValues={initialValues} onSubmit={null}>
                     {
-                        ({ handleChange }) => (
-                            <Selection
-                                name="selectedOption"
-                                handleChange={(e) => {
-                                    handleChange(e);
-                                    handleSelectChange(e);
-                                }}
-                            >
-                                {sortOptions.map((item) => item.name)}
-                            </Selection>
-                        )
+                        ({ handleChange, setFieldValue }) => {
+                            formikContext.setFieldValue = setFieldValue;
+
+                            return (
+                                <Selection
+                                    name="sortSelection"
+                                    handleChange={(e) => {
+                                        handleChange(e);
+                                        handleSelectChange(e);
+                                    }}
+                                >
+                                    {sortOptions.map((item) => item.name)}
+                                </Selection>
+                            );
+                        }
                     }
                 </Formik>
             </div>
